@@ -1,0 +1,18 @@
+{
+    "name": "Getting Started Example",
+    "description": "Build an Extension!",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["storage"],
+    "action": {
+        "default_popup": "index.html"
+    },
+    "homepage_url": "https://www.baidu.com",
+    "chrome_url_overrides":
+	{
+		"newtab": "./dist/index.html"
+	}
+}
