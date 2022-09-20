@@ -3,4 +3,11 @@ import './style.css'
 import App from './App.vue'
 import "@csstools/normalize.css"
 
-createApp(App).mount('#app')
+import 'vue-fullpage.js/dist/style.css'
+// import './fullpage.scrollHorizontally.min' // Optional. When using fullpage extensions
+
+import VueFullPage from 'vue-fullpage.js'
+
+const app = createApp(App)
+app.use(VueFullPage)
+app.mount('#app')

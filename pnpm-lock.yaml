@@ -9,6 +9,7 @@ specifiers:
   typescript: ^4.6.4
   vite: ^3.1.0
   vue: ^3.2.37
+  vue-fullpage.js: ^0.2.7
   vue-tsc: ^0.40.4
 
 dependencies:
@@ -17,6 +18,7 @@ dependencies:
   keycode: 2.2.1
   less: 4.1.3
   vue: 3.2.39
+  vue-fullpage.js: 0.2.7_vue@3.2.39
 
 devDependencies:
   '@vitejs/plugin-vue': 3.1.0_vite@3.1.1+vue@3.2.39
@@ -485,6 +487,10 @@ packages:
     dev: true
     optional: true
 
+  /fullpage.js/4.0.11:
+    resolution: {integrity: sha512-2YWG9mIfUqAPz8eFPHsSq/rMWT5xv+2C6dxQ6bljj1m31MgvhWNU3r+sa5+Ds35QThyrL3uo9RUPCxolp3SjuQ==}
+    dev: false
+
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
     dev: true
@@ -731,6 +737,15 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /vue-fullpage.js/0.2.7_vue@3.2.39:
+    resolution: {integrity: sha512-DJemlKWi0gVWrq7MoBymq0EYftf7JKZgqndb+EXHBRtPpB0BkvrdFzdT/e7nDzekB4pF+9B/lP6u0rYY5S3MVg==}
+    peerDependencies:
+      vue: ^3.2.26
+    dependencies:
+      fullpage.js: 4.0.11
+      vue: 3.2.39
+    dev: false
 
   /vue-tsc/0.40.13_typescript@4.8.3:
     resolution: {integrity: sha512-xzuN3g5PnKfJcNrLv4+mAjteMd5wLm5fRhW0034OfNJZY4WhB07vhngea/XeGn7wNYt16r7syonzvW/54dcNiA==}

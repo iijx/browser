@@ -5,13 +5,13 @@
         <input type="text" v-model="searchText" @keyup.enter="search">
     </section>
 
-    <main class="main-section">
-        <div class="main-container" style="height: 100px;">
-            <section class="section bg1"></section>
-            <section class="section bg2"></section>
-            <section class="section bg3"></section>
-        </div>
-    </main>
+    <!-- <main class="main-sections">
+        <MainSection class="main-section" />
+    </main> -->
+    <full-page ref="fullpage">
+      <div class="section">First section ...</div>
+      <div class="section">Second section ...</div>
+    </full-page>
 </div>
 </template>
 
@@ -19,6 +19,7 @@
 import axios from 'axios';
 import { computed, ref } from 'vue';
 import useSearch from './useSearch';
+import MainSection from './comp/main-section.vue';
 
 const bgSrc = ref("");
 axios.get("https://pastecuts-1gmwynv5478a4fa1-1257702679.ap-shanghai.app.tcloudbase.com/api/bizhi").then(res => {
@@ -51,8 +52,9 @@ const { curSearchWeb, search, searchText } = useSearch();
     max-width: 596px;
     margin: 0 auto;
 }
+@searchHeight: 44px;
 .search-container {
-    height: 52px;
+    height:@searchHeight;
     white-space: normal;
     box-sizing: border-box;
     white-space: nowrap;
@@ -62,12 +64,14 @@ const { curSearchWeb, search, searchText } = useSearch();
     /* background-color: red; */
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, .6);
+    background-color: rgba(74, 74, 74, 1);
     
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: calc(@searchHeight/2);
 
     display: flex;
     align-items: center;
+    box-shadow:  rgba(0, 0, 0, 0.11) 0 0 3px 0, 0 1.5px 3.6px 0 rgba(0, 0, 0, 0.13);
 
     > .icon {
         padding: 0 10px 0 12px;
@@ -83,6 +87,7 @@ const { curSearchWeb, search, searchText } = useSearch();
         background-color: transparent;
         border: none;
         color: black;
+        color: white;
         font-size: 18px;
         &:focus {
             border: none;
@@ -91,19 +96,19 @@ const { curSearchWeb, search, searchText } = useSearch();
     }
 }
 
-.main-section {
+.main-sections {
     position: absolute;
     width: 100%;
     top: 30%;
     bottom: 0;
     right: 0;
     left: 0;
-    .section {
+    .main-section {
+        position: absolute;
+        top: 0;
         width: 100%;
         height: 100%;
-        &.bg1 { background-color: red; }
-        &.bg2 { background-color: blue; }
-        &.bg3 { background-color: yellowgreen; }
+        background-color: yellowgreen;
     }
 }
 </style>
