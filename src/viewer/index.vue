@@ -1,15 +1,20 @@
 <template>
 <div class="app" :style="mainStyle">
-    <section class="search-container main-container">
-        <img class="icon" :src="curSearchWeb.icon" alt="" />
-        <input type="text" v-model="searchText" @keyup.enter="search">
-    </section>
+    <div class="cover"></div>
+
+    
 
     <!-- <main class="main-sections">
         <MainSection class="main-section" />
     </main> -->
     <full-page ref="fullpage">
       <div class="section">First section ...</div>
+      <div class="section">
+        <section class="search-container main-container">
+            <img class="icon" :src="curSearchWeb.icon" alt="" />
+            <input type="text" v-model="searchText" @keyup.enter="search">
+        </section>
+      </div>
       <div class="section">Second section ...</div>
     </full-page>
 </div>
@@ -43,6 +48,15 @@ const { curSearchWeb, search, searchText } = useSearch();
     height: 100vh;
     background-size: cover;
     background-position: center;
+    > .cover {
+        background-image: radial-gradient(rgba(0,0,0,0) 0,rgba(0,0,0,.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,.3) 166%);
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        opacity: .5;
+    }
 }
 .main-container {
     width: 78%;
@@ -58,13 +72,13 @@ const { curSearchWeb, search, searchText } = useSearch();
     white-space: normal;
     box-sizing: border-box;
     white-space: nowrap;
-    top: 15%;
+    top: 40%;
     position: relative;
     z-index: 2;
     /* background-color: red; */
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, .6);
-    background-color: rgba(74, 74, 74, 1);
+    // background-color: rgba(74, 74, 74, 1);
     
     overflow: hidden;
     border-radius: calc(@searchHeight/2);
@@ -87,7 +101,7 @@ const { curSearchWeb, search, searchText } = useSearch();
         background-color: transparent;
         border: none;
         color: black;
-        color: white;
+        // color: white;
         font-size: 18px;
         &:focus {
             border: none;
