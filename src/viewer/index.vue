@@ -2,21 +2,20 @@
 <div class="app" :style="mainStyle">
     <div class="cover"></div>
 
-    
-
-    <!-- <main class="main-sections">
-        <MainSection class="main-section" />
-    </main> -->
-    <full-page ref="fullpage">
-      <div class="section">First section ...</div>
-      <div class="section">
-        <section class="search-container main-container">
-            <img class="icon" :src="curSearchWeb.icon" alt="" />
-            <input type="text" v-model="searchText" @keyup.enter="search">
-        </section>
-      </div>
-      <div class="section">Second section ...</div>
+    <full-page ref="fullpage" :options="fullPageOptions">
+        <div class="section page">
+            <CollectionVue />
+        </div>
+        <div class="section page">
+            <section class="search-container main-container">
+                <img class="icon" :src="curSearchWeb.icon" alt="" />
+                <input type="text" v-model="searchText" @keyup.enter="search">
+            </section>
+        </div>
+        <!-- <div class="section page">Second section ...</div> -->
     </full-page>
+    <!-- <main class="main-sections"> -->
+    <!-- </main> -->
 </div>
 </template>
 
@@ -24,6 +23,7 @@
 import axios from 'axios';
 import { computed, ref } from 'vue';
 import useSearch from './useSearch';
+import CollectionVue from './comp/collection.vue';
 import MainSection from './comp/main-section.vue';
 
 const bgSrc = ref("");
@@ -32,6 +32,10 @@ axios.get("https://pastecuts-1gmwynv5478a4fa1-1257702679.ap-shanghai.app.tcloudb
   console.log(bgSrc.value)
 });
 
+const fullPageOptions = {
+    scrollOverflow: false,
+    navigation: true,
+}
 const mainStyle = computed(() => ({
     backgroundImage: `url(${bgSrc.value})`,
 }));
@@ -73,7 +77,9 @@ const { curSearchWeb, search, searchText } = useSearch();
     box-sizing: border-box;
     white-space: nowrap;
     top: 40%;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
     z-index: 2;
     /* background-color: red; */
     backdrop-filter: blur(10px);
@@ -109,20 +115,35 @@ const { curSearchWeb, search, searchText } = useSearch();
         }
     }
 }
+.page {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
 
 .main-sections {
     position: absolute;
     width: 100%;
-    top: 30%;
+    top: 0;
     bottom: 0;
     right: 0;
     left: 0;
+    overflow: auto;
+    scroll-snap-type: y mandatory;
+
     .main-section {
         position: absolute;
         top: 0;
         width: 100%;
         height: 100%;
         background-color: yellowgreen;
+    }
+    .section {
+        width: 100vw;
+        height: 100vh;
+        scroll-snap-align: start;
+        // background-color: yellowgreen;
     }
 }
 </style>

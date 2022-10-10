@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -14,3 +18,35 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+.plus.icon {
+  color: currentColor;
+  position: relative;
+}
+
+.plus.icon:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  top: calc(50% - 1px);
+}
+
+.plus.icon:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  top: 49%;
+  top: calc(50% - 1px);
+  background-color: currentColor;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+
+.text-24 {
+  font-size: 24px;
+}
+
