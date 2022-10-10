@@ -7,7 +7,7 @@
             <div class="name">{{ item.name }}</div>
         </section>
         <!-- 默认的添加按钮 -->
-        <section class="web-item add-item" @click="isShowDialog = true">
+        <section class="web-item add-item" @click="show(DialogType.ADD)">
             <div class="img-wrap">
                 <i class="icon plus text-xs"></i>
             </div>
@@ -15,13 +15,14 @@
         </section>
 
         <!-- 添加弹窗 -->
-        <AddDialog :show="isShowDialog" @close="isShowDialog = false"/>
+        <AddDialog :show="isShowDialog" :type="dialogType" @close="hide"/>
 
     </main>
 </template>
 
 <script setup lang="ts">
-import AddDialog from './dialog.vue';
+import AddDialog from './dialog/dialog.vue';
+import { useDialog, DialogType } from './dialog/use-dialog';
 
 enum WebType {
     Normal,
@@ -56,7 +57,8 @@ const webClick = (webItem: CollectionWeb) => {
     }
 };
 
-const isShowDialog = ref(false);
+
+const { isShow: isShowDialog, type: dialogType, show, hide } = useDialog();
 
 </script>
 
