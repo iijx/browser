@@ -4,27 +4,20 @@
 
     <full-page ref="fullpage" :options="fullPageOptions">
         <div class="section page">
-            <CollectionVue />
+            <CollectionPage />
         </div>
-        <div class="section page">
-            <section class="search-container main-container">
-                <img class="icon" :src="curSearchWeb.icon" alt="" />
-                <input type="text" v-model="searchText" @keyup.enter="search">
-            </section>
+        <div class="section page" :class="{'focus': isFocus}">
+            <SearchPage :isFocus="isFocus" @focus="isFocus = true" @blur="isFocus = false" />
         </div>
-        <!-- <div class="section page">Second section ...</div> -->
     </full-page>
-    <!-- <main class="main-sections"> -->
-    <!-- </main> -->
 </div>
 </template>
 
 <script setup lang="ts">
 import axios from 'axios';
 import { computed, ref } from 'vue';
-import useSearch from './useSearch';
-import CollectionVue from './comp/collection.vue';
-import MainSection from './comp/main-section.vue';
+import CollectionPage from './components/collection-page/index.vue';
+import SearchPage from './components/search-page/index.vue';
 
 const bgSrc = ref("");
 axios.get("https://pastecuts-1gmwynv5478a4fa1-1257702679.ap-shanghai.app.tcloudbase.com/api/bizhi").then(res => {
@@ -40,12 +33,12 @@ const mainStyle = computed(() => ({
     backgroundImage: `url(${bgSrc.value})`,
 }));
 
-const { curSearchWeb, search, searchText } = useSearch();
 
+const isFocus = ref(false);
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .app {
     position: relative;
     width: 100vw;
@@ -61,89 +54,28 @@ const { curSearchWeb, search, searchText } = useSearch();
         top: 0;
         opacity: .5;
     }
+    .page {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, .2);
+        transition: all .3s;
+        &.focus {
+            background-color: rgba(0, 0, 0, .4);
+        }
+    }
 }
-.main-container {
-    width: 78%;
+</style>
+
+<style lang="less">
+.com-main-container {
+    position: relative;
     max-width: 632px;
     min-width: 506px;
     min-width: 580px;
     max-width: 596px;
-    margin: 0 auto;
-}
-@searchHeight: 44px;
-.search-container {
-    height:@searchHeight;
-    white-space: normal;
-    box-sizing: border-box;
-    white-space: nowrap;
-    top: 40%;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    z-index: 2;
-    /* background-color: red; */
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, .6);
-    // background-color: rgba(74, 74, 74, 1);
-    
-    overflow: hidden;
-    border-radius: calc(@searchHeight/2);
-
-    display: flex;
-    align-items: center;
-    box-shadow:  rgba(0, 0, 0, 0.11) 0 0 3px 0, 0 1.5px 3.6px 0 rgba(0, 0, 0, 0.13);
-
-    > .icon {
-        padding: 0 10px 0 12px;
-        width: 24px;
-        height: 24px;
-        opacity: .8;
-    }
-    input {
-        display: block;
-        border-radius: 8px;
-        height: 100%;
-        width: 100%;
-        background-color: transparent;
-        border: none;
-        color: black;
-        // color: white;
-        font-size: 18px;
-        &:focus {
-            border: none;
-            outline: none;
-        }
-    }
-}
-.page {
-    width: 100%;
     height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.main-sections {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    overflow: auto;
-    scroll-snap-type: y mandatory;
-
-    .main-section {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: yellowgreen;
-    }
-    .section {
-        width: 100vw;
-        height: 100vh;
-        scroll-snap-align: start;
-        // background-color: yellowgreen;
-    }
+    margin: 0 auto;
 }
 </style>

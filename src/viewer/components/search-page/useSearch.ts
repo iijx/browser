@@ -1,5 +1,5 @@
 import { computed, ref } from "vue";
-import { WEB_SITES } from "../config";
+import { WEB_SITES } from "../../../config";
 import keycode from "keycode";
 export default () => {
     const index = ref(0);
