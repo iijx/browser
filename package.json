@@ -12,7 +12,7 @@
     "@authing/browser": "0.0.1-alpha3",
     "@csstools/normalize.css": "^12.0.0",
     "@types/crypto-js": "^4.1.1",
-    "@types/node": "^18.7.18",
+    "@types/node": "^18.0.0",
     "@vueuse/core": "^9.3.0",
     "autoprefixer": "^10.4.12",
     "axios": "^0.27.2",
