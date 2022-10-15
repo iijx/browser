@@ -11,7 +11,7 @@ export const useDialog = () => {
         type.value = _type;
         isShow.value = true;
     }
-    const hide = () => {
+    const hide = (e: MouseEvent) => {
         isShow.value = false;
     }
     return { isShow, show, hide, type };

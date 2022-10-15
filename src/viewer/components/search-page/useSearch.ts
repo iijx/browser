@@ -7,7 +7,7 @@ export default () => {
     const curSearchWeb = computed(() => WEB_SITES[index.value]);
     const maxIndex = WEB_SITES.length - 1;
 
-    const search = () => {
+    const search = (e: MouseEvent) => {
         window.open(`${curSearchWeb.value.url}${encodeURIComponent(searchText.value)}`);
     }
 

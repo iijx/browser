@@ -1,5 +1,5 @@
 <template>
-    <section class="web-item" @click="webClick(item)">
+    <section class="web-item" @click="() => webClick(item)">
         <div class="img-wrap shadow-md">
             <img :src="icon" alt="">
         </div>

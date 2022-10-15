@@ -8,7 +8,7 @@
         </section> -->
         <WebItem v-for="(item, idx) of collections" :key="idx" :item="item"/>
         <!-- 默认的添加按钮 -->
-        <section class="web-item add-item" @click="show(DialogType.ADD)">
+        <section class="web-item add-item" @click="() => show(DialogType.ADD)">
             <div class="img-wrap">
                 <i class="icon plus text-xs"></i>
             </div>

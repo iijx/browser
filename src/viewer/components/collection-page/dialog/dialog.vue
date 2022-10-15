@@ -33,7 +33,7 @@ const info = reactive({
 
 const isDisabled = computed(() => !info.url.trim());
 
-const operateBtn = () => {
+const operateBtn = (e: MouseEvent) => {
     if (isDisabled.value) return;
     emits(props.type === DialogType.ADD ? 'add' : 'update', { ...info });
 }
