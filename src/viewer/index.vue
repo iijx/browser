@@ -22,7 +22,7 @@ import axios from 'axios';
 import { computed, ref } from 'vue';
 import CollectionPage from './components/collection-page/index.vue';
 import SearchPage from './components/search-page/index.vue';
-import RecommendPage from './components/recommend-page/index.vue';
+// import RecommendPage from './components/recommend-page/index.vue';
 
 const bgSrc = ref("");
 axios.get("https://pastecuts-1gmwynv5478a4fa1-1257702679.ap-shanghai.app.tcloudbase.com/api/bizhi").then(res => {
