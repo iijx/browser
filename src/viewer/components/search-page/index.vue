@@ -4,7 +4,7 @@
             <div class="icon-wrap" v-show="isFocus">
                 <img class="icon" :src="curSearchWeb.icon" alt=""/>
             </div>
-            <div class="input-wrap">
+            <div class="input-wrap" @mouseover="$emit('focus')" @mouseleave="$emit('blur')">
                 <input class="input" type="text" v-model="searchText" @keyup.enter="search" placeholder="搜索" @focus="$emit('focus')" @blur="$emit('blur')">
             </div>
         </div>
@@ -26,7 +26,7 @@ defineProps({
 
 <style lang="less">
 
-@searchHeight: 44px;
+@searchHeight: 48px;
 .search-container {
     height:@searchHeight;
     white-space: normal;

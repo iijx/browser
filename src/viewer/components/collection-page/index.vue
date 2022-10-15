@@ -1,11 +1,12 @@
 <template>
     <main class="collection-container">
-        <section class="web-item" v-for="(item, idx) of collections" :key="idx" @click="webClick(item)">
-            <div class="img-wrap">
+        <!-- <section class="web-item"  @click="webClick(item)">
+            <div class="img-wrap shadow-md">
                 <img :src="item.icon" alt="">
             </div>
-            <div class="name">{{ item.name }}</div>
-        </section>
+            <div class="name shadow-lg">{{ item.name }}</div>
+        </section> -->
+        <WebItem v-for="(item, idx) of collections" :key="idx" :item="item"/>
         <!-- 默认的添加按钮 -->
         <section class="web-item add-item" @click="show(DialogType.ADD)">
             <div class="img-wrap">
@@ -15,7 +16,7 @@
         </section>
 
         <!-- 添加弹窗 -->
-        <AddDialog :show="isShowDialog" :type="dialogType" @close="hide"/>
+        <AddDialog :show="isShowDialog" :type="dialogType" @close="hide" @add="add" @update="update"/>
 
     </main>
 </template>
@@ -23,38 +24,34 @@
 <script setup lang="ts">
 import AddDialog from './dialog/dialog.vue';
 import { useDialog, DialogType } from './dialog/use-dialog';
+import { WebType, CollectionWeb } from './interface';
+import { useStorage } from '@vueuse/core'
+import WebItem from './web-item.vue';
+import { Ref } from 'vue';
+import Api from '@/lib/http';
 
-enum WebType {
-    Normal,
-    DEFAULT_ADD,
-}
-class CollectionWeb {
-    name: string = "";
-    icon: string = "";
-    url: string = "";
-    type: WebType = WebType.Normal;
-    constructor(name: string, icon: string, url: string, type: WebType = WebType.Normal) {
-        this.name = name;
-        this.icon = icon;
-        this.url = url;
-        this.type = type;
-    }
-}
-const collections: CollectionWeb[] = [
-    new CollectionWeb("百度", "https://www.baidu.com/favicon.ico", "https://www.baidu.com"),
-    new CollectionWeb("谷歌", "https://www.google.com/favicon.ico", "https://www.google.com"),
-    new CollectionWeb("必应", "https://cn.bing.com/favicon.ico", "https://cn.bing.com"),
-    new CollectionWeb("搜狗", "https://www.sogou.com/favicon.ico", "https://www.sogou.com"),
-    new CollectionWeb("360", "https://www.so.com/favicon.ico", "https://www.so.com"),
-    new CollectionWeb("ADD", "", "", WebType.DEFAULT_ADD),
-];
+// const collections: CollectionWeb[] = [
+//     new CollectionWeb("得到", "https://www.dedao.cn/favicon.ico", "https://www.dedao.cn"),
+//     new CollectionWeb("ReadHub", "https://www.readhub.cn/favicon.ico", "https://www.readhub.cn"),
+//     // new CollectionWeb("ADD", "", "", WebType.DEFAULT_ADD),
+// ];
 
-const webClick = (webItem: CollectionWeb) => {
-    if (webItem.type === WebType.DEFAULT_ADD) {
-        console.log("add");
-    } else {
-        window.open(webItem.url);
-    }
+const collections: Ref<CollectionWeb[]> = useStorage('collections', [] as CollectionWeb[]);
+
+Api.req('browser_home', 'GET_COLLECTION').then((res: any) => {
+    console.log('res', res);
+    collections.value = res;
+});
+
+const add = (webItem: CollectionWeb) => {
+    collections.value.push(webItem);
+    Api.req('browser_home', 'ADD_COLLECTION', webItem);
+};
+
+const update = (webItem: CollectionWeb) => {
+    const idx = collections.value.findIndex(item => item.url === webItem.url);
+    collections.value[idx] = webItem;
+    Api.req('browser_home', 'UPDATE_COLLECTION', webItem);
 };
 
 
@@ -69,8 +66,9 @@ const { isShow: isShowDialog, type: dialogType, show, hide } = useDialog();
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    // justify-content: space-around;
 }
+
 
 .web-item {
     display: flex;
@@ -93,12 +91,14 @@ const { isShow: isShowDialog, type: dialogType, show, hide } = useDialog();
         width: 100px;
         height: 100px;
         // overflow: hidden;
-        background: #fff;
+        // background: #fff;
         // background: rgba(0, 0, 0, .2);
         border-radius: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 16px;
+        overflow: hidden;
 
         // @media not all and (hover: none) {
             animation: 2s ease 0s infinite normal none running blinking;
@@ -110,8 +110,8 @@ const { isShow: isShowDialog, type: dialogType, show, hide } = useDialog();
         // box-shadow: none;
         img {
             display: block;
-            width: 60%;
-            height: 60%;
+            width: 100%;
+            height: 100%;
         }
         .icon {
             width: 24px;
@@ -121,6 +121,9 @@ const { isShow: isShowDialog, type: dialogType, show, hide } = useDialog();
     }
     .name {
         margin-top: 8px;
+        font-size: 16px;
+        font-weight: bold;
     }
 }
+
 </style>

@@ -3,12 +3,16 @@
     <div class="cover"></div>
 
     <full-page ref="fullpage" :options="fullPageOptions">
-        <div class="section page">
+        <!-- <section class="section page">
+            <RecommendPage />
+        </section> -->
+
+        <section class="section page">
             <CollectionPage />
-        </div>
-        <div class="section page" :class="{'focus': isFocus}">
+        </section>
+        <section class="section page" :class="{'focus': isFocus}">
             <SearchPage :isFocus="isFocus" @focus="isFocus = true" @blur="isFocus = false" />
-        </div>
+        </section>
     </full-page>
 </div>
 </template>
@@ -18,6 +22,7 @@ import axios from 'axios';
 import { computed, ref } from 'vue';
 import CollectionPage from './components/collection-page/index.vue';
 import SearchPage from './components/search-page/index.vue';
+import RecommendPage from './components/recommend-page/index.vue';
 
 const bgSrc = ref("");
 axios.get("https://pastecuts-1gmwynv5478a4fa1-1257702679.ap-shanghai.app.tcloudbase.com/api/bizhi").then(res => {
@@ -46,23 +51,22 @@ const isFocus = ref(false);
     background-size: cover;
     background-position: center;
     > .cover {
-        background-image: radial-gradient(rgba(0,0,0,0) 0,rgba(0,0,0,.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,.3) 166%);
+        // background-image: radial-gradient(rgba(0,0,0,0) 0,rgba(0,0,0,.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,.3) 166%);
         position: absolute;
         left: 0;
         bottom: 0;
         right: 0;
         top: 0;
-        opacity: .5;
     }
     .page {
         width: 100%;
         height: 100%;
         position: relative;
         overflow: hidden;
-        background-color: rgba(0, 0, 0, .2);
+        // background-color: rgba(0, 0, 0, );
         transition: all .3s;
         &.focus {
-            background-color: rgba(0, 0, 0, .4);
+            background-color: rgba(0, 0, 0, .2);
         }
     }
 }
