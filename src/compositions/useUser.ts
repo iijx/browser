@@ -8,7 +8,7 @@ export default () => {
     const authingSdk = new Authing({
         domain: 'https://paste.authing.cn',
         appId: '63498aa1da8437597fe8ca7a',
-        redirectUri: 'https:home.pastecuts.cn',
+        redirectUri: 'https://home.pastecuts.cn',
     });
 
     const getLoginState = async () => {
