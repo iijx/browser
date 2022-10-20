@@ -5,8 +5,8 @@
                 <img class="icon" :src="curSearchWeb.icon" alt=""/>
             </div>
             <div class="input-wrap" @mouseover="$emit('focus')" @mouseleave="$emit('blur')">
-                <input class="input" type="text" v-model="searchText" @keyup.enter="search" placeholder="搜索" @focus="$emit('focus')" @blur="$emit('blur')">
-            </div>
+                <!-- <input class="input" type="text" v-model="searchText" @keyup.enter="search" placeholder="搜索" @focus="$emit('focus')" @blur="$emit('blur')"> -->
+            </div> 
         </div>
     </section>
 </template>
@@ -15,6 +15,7 @@
 import useSearch from './useSearch';
 
 const { curSearchWeb, search, searchText } = useSearch();
+
 
 defineProps({
     isFocus: {

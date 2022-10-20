@@ -10,10 +10,10 @@
         <!-- 默认的添加按钮 -->
         <section class="web-item add-item" @click="() => show(DialogType.ADD)">
             <div class="img-wrap">
-                <i class="icon plus text-xs"></i>
+                <!-- <i class="icon plus text-xs"></i> -->
             </div>
             <div class="name">添加</div>
-        </section>
+        </section>  
 
         <!-- 添加弹窗 -->
         <AddDialog :show="isShowDialog" :type="dialogType" @close="hide" @add="add" @update="update"/>
@@ -22,14 +22,16 @@
 </template>
 
 <script setup lang="ts">
+import VueFullPage from 'vue-fullpage.js'
 import AddDialog from './dialog/dialog.vue';
 import { useDialog, DialogType } from './dialog/use-dialog';
 import { WebType, CollectionWeb } from './interface';
-import { useStorage } from '@vueuse/core'
+import { useStorage } from '@vueuse/core';
 import WebItem from './web-item.vue';
 import { Ref } from 'vue';
 import Api from '@/lib/http';
 
+console.log(VueFullPage);
 // const collections: CollectionWeb[] = [
 //     new CollectionWeb("得到", "https://www.dedao.cn/favicon.ico", "https://www.dedao.cn"),
 //     new CollectionWeb("ReadHub", "https://www.readhub.cn/favicon.ico", "https://www.readhub.cn"),

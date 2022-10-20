@@ -18,13 +18,14 @@
 </template>
 
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core';
 import axios from 'axios';
 import { computed, ref } from 'vue';
 import CollectionPage from './components/collection-page/index.vue';
 import SearchPage from './components/search-page/index.vue';
 // import RecommendPage from './components/recommend-page/index.vue';
 
-const bgSrc = ref("");
+const bgSrc = useStorage("bizhi", "");
 axios.get("https://pastecuts-1gmwynv5478a4fa1-1257702679.ap-shanghai.app.tcloudbase.com/api/bizhi").then(res => {
   bgSrc.value = `https://cn.bing.com/${res.data.data[0].todayBing}`
   console.log(bgSrc.value)
