@@ -1,12 +1,12 @@
 <template>
     <section class="com-main-container">
-        <div class="search-container" :class="{'focus': isFocus}">
-            <div class="icon-wrap" v-show="isFocus">
+        <div class="search-container">
+            <div class="icon-wrap">
                 <img class="icon" :src="curSearchWeb.icon" alt=""/>
             </div>
             <!-- @mouseover="$emit('focus')" @mouseleave="$emit('blur')" -->
             <div class="input-wrap" >
-                <input class="input" type="text" v-model="searchText" @keyup.enter="search" placeholder="搜索" @focus="$emit('focus')" @blur="$emit('blur')">
+                <input class="input" type="text" v-model="searchText" @keyup.enter="search" placeholder="">
             </div> 
         </div>
     </section>
@@ -44,7 +44,7 @@ defineProps({
     border-radius: calc(@searchHeight/3);
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, .1);
-    width: 240px;
+    width: 100%;
     transition: all .3s;
 
     > .icon-wrap {
@@ -68,6 +68,8 @@ defineProps({
         height: 100%;
         display: flex;
         align-items: center;
+        background-color: #fff;
+            color: black;
         > .input {
             display: block;
             border-radius: 8px;
@@ -75,35 +77,17 @@ defineProps({
             width: 100%;
             background-color: transparent;
             border: none;
-            color: white;
-            font-size: 18px;
-            &::-webkit-input-placeholder {
-                color: #fff;
-                font-size: 15px;
-                text-align: center;
-            }
-            &:focus {
-                color: black;
-                border: none;
-                outline: none;
-            }
-        }
-    }
-    &.focus {
-        width: 100%;
-        > .input-wrap {
-            background-color: #fff;
             color: black;
-            > .input {
-                text-indent: 2em;
-                &::-webkit-input-placeholder {
-                    text-align: left;
-                    color: black;
-                }
+            border: none;
+            outline: none;
+            font-size: 18px;
+            text-indent: 2em;
+            &::-webkit-input-placeholder {
+                text-align: left;
+                color: black;
+                font-size: 15px;
             }
         }
     }
-
-    
 }
 </style>

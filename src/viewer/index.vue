@@ -33,7 +33,16 @@ import CollectionPage from './components/collection-page/index.vue';
 import SearchPage from './components/search-page/index.vue';
 // import RecommendPage from './components/recommend-page/index.vue';
 onMounted(() => {
-    new Pageable("#container");
+    new Pageable("#container", {
+        pips: true,
+        animation: 300,
+        events: {
+            wheel: true, // enable / disable mousewheel scrolling
+            mouse: false, // enable / disable mouse drag scrolling
+            touch: true, // enable / disable touch / swipe scrolling
+            keydown: true, // enable / disable keyboard navigation
+        },
+    });
 })
 
 const bgSrc = useStorage("bizhi", "");

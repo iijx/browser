@@ -10,7 +10,7 @@
         <!-- 默认的添加按钮 -->
         <section class="web-item add-item" @click="() => show(DialogType.ADD)">
             <div class="img-wrap">
-                <!-- <i class="icon plus text-xs"></i> -->
+                <i class="icon plus text-xs"></i>
             </div>
             <div class="name">添加</div>
         </section>  
