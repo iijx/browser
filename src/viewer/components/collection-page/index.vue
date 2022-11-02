@@ -65,6 +65,7 @@ const { isShow: isShowDialog, type: dialogType, show, hide } = useDialog();
 .collection-container {
     width: 76%;
     width: 842px;
+    height: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;

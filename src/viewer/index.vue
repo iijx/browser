@@ -2,28 +2,39 @@
 <div class="app" :style="mainStyle">
     <div class="cover"></div>
 
-    <full-page ref="fullpage" :options="fullPageOptions">
-        <!-- <section class="section page">
-            <RecommendPage />
-        </section> -->
-
+    <!-- <full-page ref="fullpage" :options="fullPageOptions">
         <section class="section page">
             <CollectionPage />
         </section>
         <section class="section page" :class="{'focus': isFocus}">
             <SearchPage :isFocus="isFocus" @focus="isFocus = true" @blur="isFocus = false" />
         </section>
-    </full-page>
+    </full-page> -->
+
+    <main class="pages-container" id="container">
+        <section data-anchor="page-1" class="page">
+            <CollectionPage />
+        </section>
+        <section data-anchor="page-2" class="page">
+            <SearchPage :isFocus="isFocus" @focus="isFocus = true" @blur="isFocus = false" />
+        </section>
+    </main>
 </div>
 </template>
 
 <script setup lang="ts">
+import Pageable from "pageable";
+import "pageable/dist/pageable.min.css"
+
 import { useStorage } from '@vueuse/core';
 import axios from 'axios';
 import { computed, ref } from 'vue';
 import CollectionPage from './components/collection-page/index.vue';
 import SearchPage from './components/search-page/index.vue';
 // import RecommendPage from './components/recommend-page/index.vue';
+onMounted(() => {
+    new Pageable("#container");
+})
 
 const bgSrc = useStorage("bizhi", "");
 axios.get("https://pastecuts-1gmwynv5478a4fa1-1257702679.ap-shanghai.app.tcloudbase.com/api/bizhi").then(res => {
@@ -51,6 +62,10 @@ const isFocus = ref(false);
     height: 100vh;
     background-size: cover;
     background-position: center;
+    > .pages-container {
+        width: 100%;
+        height: 100%;
+    }
     > .cover {
         // background-image: radial-gradient(rgba(0,0,0,0) 0,rgba(0,0,0,.5) 100%),radial-gradient(rgba(0,0,0,0) 33%,rgba(0,0,0,.3) 166%);
         position: absolute;

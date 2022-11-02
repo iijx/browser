@@ -7,3 +7,5 @@ declare module '*.vue' {
 }
 
 declare module 'vue-fullpage.js'
+
+declare module 'pageable';
