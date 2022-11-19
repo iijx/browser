@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import path from 'path';
+import { ComponentResolveResult } from 'unplugin-vue-components';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +15,13 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', 'vue-router'],
     }),
-    Components({}),
+    Components({
+      resolvers: [
+          name => {
+            if (name.startsWith('Icon')) return { name: name.slice(4), from: '@icon-park/vue-next'};
+          }
+        ]
+    }),
   ],
 
   resolve: {

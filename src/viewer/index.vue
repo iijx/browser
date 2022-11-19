@@ -29,9 +29,10 @@ import "pageable/dist/pageable.min.css"
 import { useStorage } from '@vueuse/core';
 import axios from 'axios';
 import { computed, ref } from 'vue';
-import CollectionPage from './components/collection-page/index.vue';
-import SearchPage from './components/search-page/index.vue';
+import CollectionPage from './collection-page/index.vue';
+import SearchPage from './search-page/index.vue';
 // import RecommendPage from './components/recommend-page/index.vue';
+
 onMounted(() => {
     new Pageable("#container", {
         pips: true,

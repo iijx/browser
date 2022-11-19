@@ -3,6 +3,8 @@ import './style.css'
 import App from './App.vue'
 import "@csstools/normalize.css";
 
+import { createPinia } from 'pinia'
+
 // import 'vue-fullpage.js/dist/style.css'
 // import './fullpage.scrollHorizontally.min' // Optional. When using fullpage extensions
 // import VueFullPage from 'vue-fullpage.js'
@@ -10,6 +12,8 @@ import "@csstools/normalize.css";
 
 const app = createApp(App)
 // app.use(VueFullPage)
-app.mount('#app')
+app
+.use(createPinia())
+.mount('#app')
 
 // useUser();

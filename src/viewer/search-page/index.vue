@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import useSearch from './useSearch';
+import useSearch from './use-search';
 
 const { curSearchWeb, search, searchText } = useSearch();
 
