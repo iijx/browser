@@ -35,7 +35,7 @@ import SearchPage from './components/search-page/index.vue';
 onMounted(() => {
     new Pageable("#container", {
         pips: true,
-        animation: 300,
+        animation: 460,
         events: {
             wheel: true, // enable / disable mousewheel scrolling
             mouse: false, // enable / disable mouse drag scrolling
@@ -89,7 +89,7 @@ const isFocus = ref(false);
         position: relative;
         overflow: hidden;
         // background-color: rgba(0, 0, 0, );
-        transition: all .3s;
+        // transition: all .3s;
         &.focus {
             background-color: rgba(0, 0, 0, .2);
         }
