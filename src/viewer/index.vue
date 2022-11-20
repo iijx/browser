@@ -31,6 +31,8 @@ import axios from 'axios';
 import { computed, ref } from 'vue';
 import CollectionPage from './collection-page/index.vue';
 import SearchPage from './search-page/index.vue';
+import Http from "@/lib/request";
+import Api from "@/api";
 // import RecommendPage from './components/recommend-page/index.vue';
 
 onMounted(() => {
@@ -47,8 +49,8 @@ onMounted(() => {
 })
 
 const bgSrc = useStorage("bizhi", "");
-axios.get("https://pastecuts-1gmwynv5478a4fa1-1257702679.ap-shanghai.app.tcloudbase.com/api/bizhi").then(res => {
-  bgSrc.value = `https://cn.bing.com/${res.data.data[0].todayBing}`
+Api.apiBizhiReq().then(res => {
+  bgSrc.value = `https://cn.bing.com/${res[0].todayBing}`
   console.log(bgSrc.value)
 });
 
@@ -59,7 +61,6 @@ const fullPageOptions = {
 const mainStyle = computed(() => ({
     backgroundImage: `url(${bgSrc.value})`,
 }));
-
 
 const isFocus = ref(false);
 

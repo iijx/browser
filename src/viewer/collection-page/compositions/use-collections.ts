@@ -1,5 +1,6 @@
+import Api from "@/api";
 import { CollectionWeb } from "@/interface";
-import Api from '@/lib/http';
+
 import { useStorage } from '@vueuse/core';
 import { Ref } from "vue";
 
@@ -8,7 +9,7 @@ export const useCollections = () => {
     const collections: Ref<CollectionWeb[]> = useStorage('collections', [] as CollectionWeb[]);
 
     // 获取
-    Api.req('browser_home', 'GET_COLLECTION').then((res: any) => {
+    Api.getWebItems().then((res: any) => {
         console.log('res', res);
         collections.value = res;
     });

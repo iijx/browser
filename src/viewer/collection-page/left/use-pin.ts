@@ -1,4 +1,6 @@
+import Api from "@/api";
 import { PinModel } from "@/interface";
+import Http from "@/lib/request";
 import Store from '@/store/index';
 
 import { Ref } from "vue";
@@ -22,6 +24,12 @@ export const usePin = (opt: IOpt) => {
     const deletePin = (index: number) => {
         userStore.pins.splice(index, 1);
     }
+
+    // 获取
+    Api.getPins().then((res: any) => {
+        console.log('res', res);
+        // userStore.setPins(res);
+    });
 
   return { renderPins, pinClick, deletePin };
 }

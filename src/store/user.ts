@@ -1,4 +1,3 @@
-import Api from '../lib/http';
 import { defineStore } from 'pinia'
 import { PinModel, UserModel } from '../interface'
 import localDataManage, { ENUM_LOCAL_KEY } from '@/lib/localDataManager';
@@ -30,9 +29,9 @@ export default defineStore('user', {
             localDataManage.setItem(ENUM_LOCAL_KEY.PINS, JSON.stringify(this.pins))
         },
         async loginByUser(userId: string) {
-            const userRes = await Api.req('user', 'FIND_ONE_BY_ID', userId);
-            console.log('userRes', userRes);
-            this.setUserInfo(userRes as unknown as UserModel);
+            // const userRes = await Api.req('user', 'FIND_ONE_BY_ID', userId);
+            // console.log('userRes', userRes);
+            // this.setUserInfo(userRes as unknown as UserModel);
         }
     }
 });

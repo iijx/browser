@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { WebType, CollectionWeb } from './interface';
+import { CollectionWeb } from '@/interface';
 
 const props = defineProps({
     item: {
