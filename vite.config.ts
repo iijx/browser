@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import path from 'path';
-import { ComponentResolveResult } from 'unplugin-vue-components';
+import { ArcoResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,9 +14,13 @@ export default defineConfig({
     vue(),
     AutoImport({
       imports: ['vue', 'vue-router'],
+      resolvers: [ArcoResolver()],
     }),
     Components({
       resolvers: [
+          ArcoResolver({
+            sideEffect: true
+          }),
           name => {
             if (name.startsWith('Icon')) return { name: name.slice(4), from: '@icon-park/vue-next'};
           }

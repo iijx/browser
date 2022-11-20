@@ -27,7 +27,7 @@ const handleDeletePin = () => {
             <div @click="collapsed = !collapsed" :class="{'rotate-180': !collapsed}" class="absolute top-0 w-full cursor-pointer py-3 flex justify-center bg-black bg-opacity-0 hover:bg-opacity-5">
                 <icon-left theme="outline" size="24" fill="#838778" class="transition-transform" />
             </div>
-            <div v-for="(item, index) of renderPins" :key="item.pinId" class="tab-btn" :class="{'selected': appStore.curPinId === item.pinId}" @click="pinClick(item.pinId)" @contextmenu="e => pinRightClick(e, index)">
+            <div v-for="(item, index) of renderPins" :key="item._id" class="tab-btn" :class="{'selected': appStore.curPinId === item._id}" @click="pinClick(item._id as string)" @contextmenu="e => pinRightClick(e, index)">
                 <i class="w-2 h-2 rounded-full transition-all" :style="{background: item.color}"></i>
                 <!-- <i v-show="!collapsed" class="w-6 h-6 rounded-full" :style="{background: item.color}"></i> -->
                 <span v-show="collapsed" class="ml-2 text-sm truncate select-none">{{ item.name }}</span>

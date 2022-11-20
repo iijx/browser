@@ -12,7 +12,6 @@ export default () => {
     });
 
     const getLoginState = async () => {
-        console.log("0");
         try {
             const state = await authingSdk.getLoginState();
             if (!state) {

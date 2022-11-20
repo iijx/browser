@@ -1,5 +1,7 @@
+import Api from "@/api/index";
 import { DialogType, PinModel } from "@/interface";
 import Store from '@/store/index';
+import { Message, Notification } from '@arco-design/web-vue';
 
 import { Ref } from "vue";
 
@@ -24,7 +26,6 @@ export const useDialog = (opt: IOpt) => {
             tagDialog.item = new PinModel('', '');
         } else if (type === DialogType.EDIT) {
             tagDialog.item = PinModel.build(item as PinModel);
-            console.log('tagDialog', tagDialog)
         }
     }
 
@@ -32,9 +33,13 @@ export const useDialog = (opt: IOpt) => {
     const complete = ({ name = '', color = '' }) => {
         if (tagDialog.type === DialogType.ADD) {
             const pin = new PinModel(name, color);
-            userStore.addPins(pin);
+            Api.addPin(pin).then(res => {
+                console.log("add", res);
+                appStore.addPins(pin);
+                Message.success('添加成功');                
+            });
         } else {
-            userStore.updatePin(tagDialog.item.pinId, name, color);
+            // appStore.updatePin(tagDialog.item._id, name, color);
         }
         tagDialog.show = false;
     }

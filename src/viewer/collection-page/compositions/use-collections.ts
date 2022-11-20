@@ -1,4 +1,4 @@
-import Api from "@/api";
+import Api from "@/api/index";
 import { CollectionWeb } from "@/interface";
 
 import { useStorage } from '@vueuse/core';
@@ -15,7 +15,7 @@ export const useCollections = () => {
     });
 
     // 添加
-    const add = (webItem: CollectionWeb, pinId?: number) => {
+    const add = (webItem: CollectionWeb, pinId?: string) => {
         if (pinId) webItem.setPinId(pinId);
 
         collections.value.push(webItem);

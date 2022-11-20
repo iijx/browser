@@ -1,4 +1,4 @@
-import Api from "@/api";
+import Api from "@/api/index";
 import { PinModel } from "@/interface";
 import Http from "@/lib/request";
 import Store from '@/store/index';
@@ -13,10 +13,10 @@ export const usePin = (opt: IOpt) => {
     const userStore = Store.userStore();
 
     const renderPins = computed(() => {
-        return [new PinModel('主页', '#838778', -1)].concat(userStore.pins);
+        return [new PinModel('主页', '#838778', "-1")].concat(userStore.pins);
     })
 
-    const pinClick = (pinId: number) => {
+    const pinClick = (pinId: string) => {
         if (appStore.curPinId === pinId) return;
         else appStore.setPinId(pinId);
     }

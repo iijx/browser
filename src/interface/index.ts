@@ -5,14 +5,16 @@ export enum DialogType {
 }
 
 export class PinModel {
-    pinId: number;
+    _id?: string;
     name: string;
     color: string;
     static build(item: PinModel) {
-        return new PinModel(item.name, item.color, item.pinId);
+        return new PinModel(item.name, item.color, item._id || '');
     }
-    constructor(name: string, color: string, pinId?: number) {
-        this.pinId = pinId || Date.now();
+    constructor(name: string, color: string, _id?: string) {
+        if (_id) {
+            this._id = _id;
+        }
         this.name = name || '';
         this.color = color || '';
     }
@@ -70,15 +72,15 @@ export class CollectionWeb {
     icon: string = "";
     url: string = "";
     type: WebType = WebType.Normal;
-    pinId: number = -1;
+    pinId: string = "";
     constructor(name: string, icon: string, url: string, type: WebType = WebType.Normal) {
         this.name = name;
         this.icon = icon;
         this.url = url;
         this.type = type;
-        this.pinId = -1;
+        this.pinId = "";
     }
-    setPinId(id: number) {
+    setPinId(id: string) {
         this.pinId = id;
     }
 }

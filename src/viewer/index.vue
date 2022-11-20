@@ -2,38 +2,29 @@
 <div class="app" :style="mainStyle">
     <div class="cover"></div>
 
-    <!-- <full-page ref="fullpage" :options="fullPageOptions">
-        <section class="section page">
-            <CollectionPage />
-        </section>
-        <section class="section page" :class="{'focus': isFocus}">
-            <SearchPage :isFocus="isFocus" @focus="isFocus = true" @blur="isFocus = false" />
-        </section>
-    </full-page> -->
-
     <main class="pages-container" id="container">
         <section data-anchor="page-1" class="page">
             <CollectionPage />
         </section>
         <section data-anchor="page-2" class="page">
-            <SearchPage :isFocus="isFocus" @focus="isFocus = true" @blur="isFocus = false" />
+            <SearchPage />
         </section>
     </main>
+
+    <!-- 登录弹窗 -->
+    <div id="authing-guard-container"></div>
 </div>
 </template>
 
 <script setup lang="ts">
 import Pageable from "pageable";
 import "pageable/dist/pageable.min.css"
-
 import { useStorage } from '@vueuse/core';
-import axios from 'axios';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import CollectionPage from './collection-page/index.vue';
 import SearchPage from './search-page/index.vue';
-import Http from "@/lib/request";
 import Api from "@/api";
-// import RecommendPage from './components/recommend-page/index.vue';
+import { useGuard } from "@authing/guard-vue3";
 
 onMounted(() => {
     new Pageable("#container", {
@@ -51,18 +42,22 @@ onMounted(() => {
 const bgSrc = useStorage("bizhi", "");
 Api.apiBizhiReq().then(res => {
   bgSrc.value = `https://cn.bing.com/${res[0].todayBing}`
-  console.log(bgSrc.value)
 });
 
-const fullPageOptions = {
-    scrollOverflow: false,
-    navigation: true,
-}
 const mainStyle = computed(() => ({
     backgroundImage: `url(${bgSrc.value})`,
 }));
 
-const isFocus = ref(false);
+
+const guard = useGuard();
+
+onMounted(() => {
+  // 使用 start 方法挂载 Guard 组件到你指定的 DOM 节点，登录成功后返回 userInfo
+  guard.start("#authing-guard-container").then((userInfo) => {
+    console.log("userInfo: ", userInfo);
+  });
+});
+
 
 </script>
 

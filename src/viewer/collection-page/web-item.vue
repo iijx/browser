@@ -21,7 +21,10 @@ const props = defineProps({
 
 const webClick = (webItem: CollectionWeb) => window.open(webItem.url);
 
-const url = computed(() => new URL(props.item.url));
+const url = computed(() => {
+    console.log("props.item", props.item);
+    return new URL(props.item.url || '');
+});
 
 const icon = computed(() => `${url.value.href}/favicon.ico`);
 </script>
