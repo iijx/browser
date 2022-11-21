@@ -1,6 +1,5 @@
 import { Authing } from '@authing/browser'
 
-console.log(import.meta.env.DEV);
 const authing = new Authing({
     domain: 'https://paste.authing.cn',
     appId: '63498aa1da8437597fe8ca7a',

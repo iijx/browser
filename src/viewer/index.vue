@@ -12,7 +12,7 @@
     </main>
 
     <!-- 登录弹窗 -->
-    <div id="authing-guard-container"></div>
+    <div id="authing-guard-container" class="login-container"></div>
 </div>
 </template>
 
@@ -25,6 +25,8 @@ import CollectionPage from './collection-page/index.vue';
 import SearchPage from './search-page/index.vue';
 import Api from "@/api";
 import { useGuard } from "@authing/guard-vue3";
+import "@authing/guard-vue3/dist/esm/guard.min.css";
+
 
 onMounted(() => {
     new Pageable("#container", {
@@ -50,12 +52,15 @@ const mainStyle = computed(() => ({
 
 
 const guard = useGuard();
+console.log("guard instance: ", guard);
 
 onMounted(() => {
   // 使用 start 方法挂载 Guard 组件到你指定的 DOM 节点，登录成功后返回 userInfo
   guard.start("#authing-guard-container").then((userInfo) => {
     console.log("userInfo: ", userInfo);
-  });
+  }).catch((err) => {
+    console.log("err", err);
+  })
 });
 
 
@@ -92,6 +97,7 @@ onMounted(() => {
         }
     }
 }
+
 </style>
 
 <style lang="less">

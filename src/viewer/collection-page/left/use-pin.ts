@@ -27,7 +27,6 @@ export const usePin = (opt: IOpt) => {
 
     // 获取
     Api.getPins().then((res: any) => {
-        console.log('res', res);
         // userStore.setPins(res);
     });
 

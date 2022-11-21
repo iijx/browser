@@ -10,7 +10,6 @@ export const useCollections = () => {
 
     // 获取
     Api.getWebItems().then((res: any) => {
-        console.log('res', res);
         collections.value = res;
     });
 
