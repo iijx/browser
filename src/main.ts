@@ -14,7 +14,6 @@ import { createGuard } from '@authing/guard-vue3';
 const host = import.meta.env.DEV ? 'http://localhost:8080' : 'https://home.pastecuts.cn';
 
 const app = createApp(App)
-// app.use(VueFullPage)
 app
 .use(createPinia())
 .use(createGuard({
@@ -22,8 +21,8 @@ app
     mode: 'modal',
     // 默认情况下，会使用你在 Authing 控制台中配置的第一个回调地址为此次认证使用的回调地址。
     // 如果你配置了多个回调地址，也可以手动指定（此地址也需要加入到应用的「登录回调 URL」中）：
-    redirectUri: host,
-    host: 'https://home.pastecuts.cn',
+    // redirectUri: 'http://localhost:8080',
+    // host: 'localhost',
 }))
 .mount('#app')
 

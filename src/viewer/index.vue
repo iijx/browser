@@ -43,7 +43,7 @@ onMounted(() => {
 
 const bgSrc = useStorage("bizhi", "");
 Api.apiBizhiReq<any[]>().then((res: any[]) => {
-  bgSrc.value = `https://cn.bing.com/${res[0].todayBing}`
+    bgSrc.value = `https://cn.bing.com/${res[0].todayBing}`
 });
 
 const mainStyle = computed(() => ({
@@ -55,12 +55,21 @@ const guard = useGuard();
 console.log("guard instance: ", guard);
 
 onMounted(() => {
-  // 使用 start 方法挂载 Guard 组件到你指定的 DOM 节点，登录成功后返回 userInfo
-  guard.start("#authing-guard-container").then((userInfo) => {
-    console.log("userInfo: ", userInfo);
-  }).catch((err) => {
-    console.log("err", err);
-  })
+    // 使用 start 方法挂载 Guard 组件到你指定的 DOM 节点，登录成功后返回 userInfo
+    // guard.getAuthClient().then((res) => {
+        //     console.log("res", res)
+        // })
+    guard.checkLoginStatus().then(res => {
+        console.log("res", res);
+        guard.start("#authing-guard-container").then((userInfo) => {
+            if (userInfo.id) {
+                // guard.hide();
+            }
+            console.log("userInfo: ", userInfo);
+        }).catch((err) => {
+            console.log("err", err);
+        })
+    })
 });
 
 
