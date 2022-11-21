@@ -42,7 +42,7 @@ onMounted(() => {
 })
 
 const bgSrc = useStorage("bizhi", "");
-Api.apiBizhiReq().then(res => {
+Api.apiBizhiReq<any[]>().then((res: any[]) => {
   bgSrc.value = `https://cn.bing.com/${res[0].todayBing}`
 });
 

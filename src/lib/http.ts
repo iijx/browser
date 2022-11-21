@@ -1,4 +1,5 @@
-
+const _http = {};
+export default _http;
 // /**
 //  * 这个文件走的是 api 网关，但是现在不用了，，api网关也删了，
 //  * 因为 云函数可以直接 http 访问

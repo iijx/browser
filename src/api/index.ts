@@ -54,7 +54,7 @@ const Api = {
     },
     // 添加 pin
     addPin(pin: PinModel) {
-        if (!this.tryCheckLogin()) return;
+        if (!this.tryCheckLogin()) return Promise.reject();
         return Api.appBrowserReq('pin', Api.Methods.ADD, pin);
     },
     // 更新 pin
