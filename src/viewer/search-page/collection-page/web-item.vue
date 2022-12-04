@@ -1,35 +1,40 @@
 <template>
-    <section class="web-item" @click="() => webClick(item)">
+    <section class="web-item-container" @click="() => webClick(item)">
         <div class="img-wrap shadow-md">
             <img :src="icon" alt="">
         </div>
-        <div v-if="item.name" class="name shadow-lg">{{ item.name }}</div>
-        <div v-else class="name shadow-lg">&nbsp;</div>
+        <div v-if="item.title" class="name">{{ title }}</div>
+        <div v-else class="name">&nbsp;</div>
     </section>
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
-import { CollectionWeb } from '@/interface';
+import { computed, PropType } from 'vue';
+import { WebItem } from '@/interface';
 
 const props = defineProps({
     item: {
-        type: Object as PropType<CollectionWeb>,
+        type: Object as PropType<WebItem>,
         required: true,
     },
 });
 
-const webClick = (webItem: CollectionWeb) => window.open(webItem.url);
+const webClick = (webItem: WebItem) => window.open(webItem.url);
 
 const url = computed(() => {
-    return new URL(props.item.url || '');
+    console.log("url", props.item);
+    return new URL(props.item.url || 'www.baidu.com');
 });
 
-const icon = computed(() => `${url.value.href}/favicon.ico`);
+const title = computed(() => {
+    return (/^[^|\-/｜•—]+/.exec(props.item.title) || [])[0] || props.item.title || '';
+});
+
+const icon = computed(() => props.item.icon || `${url.value.href}/favicon.ico`);
 </script>
 
 <style lang="less" scoped>
-.web-item {
+.web-item-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +43,8 @@ const icon = computed(() => `${url.value.href}/favicon.ico`);
     line-height: 1.6;
     cursor: pointer;
     border-radius: 8px;
-    margin: 0 24px;
+    margin-left: 24px;
+    margin-right: 24px;
     &.add-item {
         > .img-wrap {
             background-color: rgba(#000, .4);
@@ -48,8 +54,8 @@ const icon = computed(() => `${url.value.href}/favicon.ico`);
     //     background-color: rgba(#000, .4);
     // }
     .img-wrap {
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 60px;
         // overflow: hidden;
         // background: #fff;
         // background: rgba(0, 0, 0, .2);
@@ -81,8 +87,9 @@ const icon = computed(() => `${url.value.href}/favicon.ico`);
     }
     .name {
         margin-top: 8px;
-        font-size: 16px;
+        font-size: 12px;
         font-weight: bold;
+        color: #fff;
     }
 }
 </style>

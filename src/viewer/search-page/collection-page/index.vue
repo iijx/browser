@@ -1,13 +1,13 @@
 <template>
     <main class="collection-container">
         <!-- 左侧 pin -->
-        <section class="left-wrap">
+        <!-- <section class="left-wrap">
             <Left />
-        </section>
+        </section> -->
 
         <!-- 主要视图 -->
         <main class="collection-main-container">
-            <WebItem v-for="(item, idx) of collections" :key="idx" :item="item"/>
+            <WebItem v-for="(item, idx) of renderCollections" :key="idx" :item="item"/>
             <!-- 默认的添加按钮 -->
             <section class="web-item add-item ml-4" @click="() => showDialog(DialogType.ADD)">
                 <div class="img-wrap">
@@ -18,7 +18,7 @@
         </main>
 
         <!-- 添加弹窗 -->
-        <AddDialog :show="isShowDialog" :type="dialogType" @close="hideDialog" @add="add" @update="update" />
+        <AddDialog :show="isShowDialog" :type="dialogType" @close="hideDialog" @add="handleAdd" @update="update" />
     </main>
 </template>
 
@@ -28,12 +28,19 @@ import { useDialog, DialogType } from './dialog/use-dialog';
 import WebItem from './web-item.vue';
 import Left from './left/index.vue';
 import { useCollections } from './compositions/use-collections';
+import { WebItem as WebItemModel } from '@/interface';
 
 // 网站 item 收集列表
-const { collections, add, update } = useCollections();
+const { renderCollections, add, update } = useCollections();
 
 // 弹窗
 const { isShow: isShowDialog, type: dialogType, show: showDialog, hide: hideDialog } = useDialog();
+
+const handleAdd = (webItem: WebItemModel) => {
+    add(webItem).then(() => {
+        hideDialog();
+    });
+};
 
 </script>
 
@@ -52,10 +59,10 @@ const { isShow: isShowDialog, type: dialogType, show: showDialog, hide: hideDial
     .collection-main-container {
         width: 76%;
         width: 842px;
-        height: 100%;
+        // height: 100%;
         margin: 0 auto;
         display: flex;
-        align-items: center;
+        // align-items: center;
     }
 }
 
@@ -73,12 +80,9 @@ const { isShow: isShowDialog, type: dialogType, show: showDialog, hide: hideDial
             background-color: rgba(#000, .4);
         }
     }
-    // &:hover {
-    //     background-color: rgba(#000, .4);
-    // }
     .img-wrap {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         // overflow: hidden;
         // background: #fff;
         // background: rgba(0, 0, 0, .2);
@@ -110,7 +114,7 @@ const { isShow: isShowDialog, type: dialogType, show: showDialog, hide: hideDial
     }
     .name {
         margin-top: 8px;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
     }
 }

@@ -1,3 +1,4 @@
+import Api from "@/api";
 
 export enum DialogType {
     ADD,
@@ -7,11 +8,14 @@ export enum DialogType {
 export const useDialog = () => {
     const isShow = ref(false)
     const type = ref(DialogType.ADD);
+
     const show = (_type: DialogType) => {
-        type.value = _type;
-        isShow.value = true;
+        if (Api.tryCheckLogin()) {
+            type.value = _type;
+            isShow.value = true;
+        }
     }
-    const hide = (e: MouseEvent) => {
+    const hide = () => {
         isShow.value = false;
     }
     return { isShow, show, hide, type };

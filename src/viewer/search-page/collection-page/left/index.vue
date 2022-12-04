@@ -7,11 +7,11 @@ import { useDialog } from './use-dialog';
 import { usePop } from './use-pop';
 const appStore = Store.appStore();
 
-const collapsed = ref(false);
+const collapsed = ref(true);
 // 列表相关
 const { renderPins, pinClick, deletePin } = usePin({ collapsed });
 // 弹窗相关
-const { tagDialog, showDialog, complete } = useDialog({ collapsed});
+const { tagDialog, showDialog, complete } = useDialog();
 // pop 相关
 const { popInfo, pinRightClick } = usePop({ collapsed });
 
@@ -22,12 +22,12 @@ const handleDeletePin = () => {
 </script>
 
 <template>
-    <section class="v-left-wrap" :class="{'w-20': collapsed, 'w-12': !collapsed}" oncontextmenu="return false">
+    <section class="v-left-wrap" :class="{'w-16': collapsed, 'w-12': !collapsed}" oncontextmenu="return false">
         <section class="v-left pt-12">
             <div @click="collapsed = !collapsed" :class="{'rotate-180': !collapsed}" class="absolute top-0 w-full cursor-pointer py-3 flex justify-center bg-black bg-opacity-0 hover:bg-opacity-5">
                 <icon-left theme="outline" size="24" fill="#838778" class="transition-transform" />
             </div>
-            <div v-for="(item, index) of renderPins" :key="item._id" class="tab-btn" :class="{'selected': appStore.curPinId === item._id}" @click="pinClick(item._id as string)" @contextmenu="e => pinRightClick(e, index)">
+            <div v-for="(item, index) of renderPins" :key="item.uuid" class="tab-btn" :class="{'selected': appStore.curPinId === item.uuid}" @click="pinClick(item.uuid)" @contextmenu="e => pinRightClick(e, index)">
                 <i class="w-2 h-2 rounded-full transition-all" :style="{background: item.color}"></i>
                 <!-- <i v-show="!collapsed" class="w-6 h-6 rounded-full" :style="{background: item.color}"></i> -->
                 <span v-show="collapsed" class="ml-2 text-sm truncate select-none">{{ item.name }}</span>

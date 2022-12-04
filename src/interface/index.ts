@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 
 export enum DialogType {
     ADD,
@@ -6,17 +7,19 @@ export enum DialogType {
 
 export class PinModel {
     _id?: string;
+    uuid: string = '';
     name: string;
     color: string;
     static build(item: PinModel) {
-        return new PinModel(item.name, item.color, item._id || '');
+        return new PinModel(item);
     }
-    constructor(name: string, color: string, _id?: string) {
-        if (_id) {
-            this._id = _id;
+    constructor(opt: any) {
+        if (opt._id) {
+            this._id = opt._id;
         }
-        this.name = name || '';
-        this.color = color || '';
+        this.name = opt.name || '';
+        this.color = opt.color || '#000000';
+        this.uuid = opt.uuid || uuid();
     }
 }
 
@@ -46,7 +49,7 @@ export class UserModel {
         this.email = opt.email || '';
 
         this.isSync = opt.isSync || false;
-        this.pins = opt.pins || [];
+        this.pins = typeof opt.pins === 'string' ? JSON.parse(opt.pins) : (opt.pins || []);
     }
     build(opt: UserModel) {
         if (opt._id) this._id = opt._id;
@@ -57,9 +60,11 @@ export class UserModel {
         this.miniOpenid = opt.miniOpenid || '';
         this.mobile = opt.mobile || '';
         this.email = opt.email || '';
-
         this.isSync = opt.isSync || false;
-        this.pins = opt.pins || [];
+        this.pins = typeof opt.pins === 'string' ? JSON.parse(opt.pins) : (opt.pins || []);
+    }
+    addPin(pin: PinModel) {
+        this.pins.push(pin);
     }
 }
 
@@ -67,18 +72,20 @@ export enum WebType {
     Normal,
     DEFAULT_ADD,
 }
-export class CollectionWeb {
-    name: string = "";
+export class WebItem {
+    _id?: string;
+    title: string = "";
     icon: string = "";
     url: string = "";
-    type: WebType = WebType.Normal;
     pinId: string = "";
-    constructor(name: string, icon: string, url: string, type: WebType = WebType.Normal) {
-        this.name = name;
-        this.icon = icon;
-        this.url = url;
-        this.type = type;
-        this.pinId = "";
+    uid: string = "";
+    constructor(opt: any) {
+        if (opt._id) this._id = opt._id;
+        this.title = opt.title || '';
+        this.icon = opt.icon || '';
+        this.url = opt.url || '';
+        this.pinId = opt.pinId || '';
+        this.uid = opt.uid || '';
     }
     setPinId(id: string) {
         this.pinId = id;
