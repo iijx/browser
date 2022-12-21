@@ -1,7 +1,7 @@
 <template>
 <!-- <div class="app" :style="mainStyle"> -->
     
-<div class="app" :style="{}" style="background: linear-gradient(-225deg, rgb(71, 59, 123) 0%, rgb(53, 132, 167) 51%, rgb(48, 210, 190) 100%);">
+<div class="app" :style="style">
     <!-- <div class="cover"></div> -->
 
     <!-- <main class="pages-container" id="container">
@@ -15,12 +15,17 @@
 
     <!-- 设置按钮 -->
     <section class="icon-setting-wrap">
-        <icon-setting-config fill="#fff" size="18"/>
+        <label for="my-modal-6" class="btn">
+            <icon-setting-config fill="#fff" size="18"/>
+        </label>
+
         <!-- <bill theme="outline" size="24" fill="#333"/> -->
     </section>
 
     <!-- 登录弹窗 -->
-    <div id="authing-guard-container" class="login-container"></div>
+    <!-- <div id="authing-guard-container" class="login-container"></div> -->
+    <!-- <LoginDialog v-show="true" /> -->
+    <SettingDialog />
 </div>
 </template>
 
@@ -35,9 +40,15 @@ import Api from "@/api";
 import { useGuard } from "@authing/guard-vue3";
 import "@authing/guard-vue3/dist/esm/guard.min.css";
 import { UserModel } from '@/interface';
+import LoginDialog from '@/components/login-dialog.vue';
+import SettingDialog from '@/components/setting-dialog/index.vue';
 import Store from "@/store";
+import { useBackground } from "@/compositions/use-background";
 const appStore = Store.appStore();
 const userStore = Store.userStore();
+
+const { style } = useBackground();
+console.log("style", style.backgroundImage)
 
 onMounted(() => {
     // new Pageable("#container", {
@@ -51,6 +62,8 @@ onMounted(() => {
     //     },
     // });
 })
+
+
 
 const bgSrc = useStorage("bizhi", "");
 Api.apiBizhiReq<any[]>().then((res: any[]) => {

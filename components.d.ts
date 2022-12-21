@@ -8,5 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     IconSettingConfig: typeof import('@icon-park/vue-next')['SettingConfig']
+    LoginDialog: typeof import('./src/components/login-dialog.vue')['default']
+    SettingDialog: typeof import('./src/components/setting-dialog/index.vue')['default']
   }
 }
